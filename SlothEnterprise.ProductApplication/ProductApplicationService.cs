@@ -40,7 +40,7 @@ namespace SlothEnterprise.ProductApplication
                     cid.AdvancePercentage,
                     cid.VatRate);
 
-                return (result.Success) ? result.ApplicationId ?? -1 : -1;
+                return result.ToInt();
             }
 
             if (product is BusinessLoans loans)
@@ -53,7 +53,7 @@ namespace SlothEnterprise.ProductApplication
                         LoanAmount = loans.LoanAmount
                     });
 
-                return (result.Success) ? result.ApplicationId ?? -1 : -1;
+                return result.ToInt();
             }
 
             throw new InvalidOperationException();

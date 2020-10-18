@@ -3,7 +3,7 @@ using SlothEnterprise.ProductApplication.Applications;
 
 namespace SlothEnterprise.ProductApplication
 {
-	static class Extensions
+	public static class Extensions
 	{
 		public static CompanyDataRequest ToRequest(this ISellerCompanyData companyData) =>
 			new CompanyDataRequest
@@ -13,5 +13,8 @@ namespace SlothEnterprise.ProductApplication
 				CompanyName = companyData.Name,
 				DirectorName = companyData.DirectorName
 			};
+
+		public static int ToInt(this IApplicationResult result) =>
+			(result.Success) ? result.ApplicationId ?? -1 : -1;
 	}
 }
