@@ -49,7 +49,7 @@ namespace SlothEnterprise.ProductApplication.Tests
                 Success = true
             };
 
-            Assert.Equal(-1, result.ToInt());
+            Assert.Equal(Constants.InvalidResult, result.ToInt());
         }
 
         [Fact]
@@ -60,7 +60,7 @@ namespace SlothEnterprise.ProductApplication.Tests
                 Success = false
             };
 
-            Assert.Equal(-1, result.ToInt());
+            Assert.Equal(Constants.InvalidResult, result.ToInt());
         }
     }
 }

@@ -15,6 +15,8 @@ namespace SlothEnterprise.ProductApplication
 			};
 
 		public static int ToInt(this IApplicationResult result) =>
-			(result.Success) ? result.ApplicationId ?? -1 : -1;
+			result.Success
+				? result.ApplicationId ?? Constants.InvalidResult
+				: Constants.InvalidResult;
 	}
 }
