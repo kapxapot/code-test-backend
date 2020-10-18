@@ -1,12 +1,11 @@
-﻿using System;
-using SlothEnterprise.External;
-using SlothEnterprise.External.V1;
+﻿using SlothEnterprise.External.V1;
 using SlothEnterprise.ProductApplication.Applications;
 using SlothEnterprise.ProductApplication.Products;
+using System;
 
 namespace SlothEnterprise.ProductApplication
 {
-    public class ProductApplicationService
+	public class ProductApplicationService
     {
         private readonly ISelectInvoiceService _selectInvoiceService;
         private readonly IConfidentialInvoiceService _confidentialInvoiceWebService;
@@ -47,11 +46,7 @@ namespace SlothEnterprise.ProductApplication
             {
                 var result = _businessLoansService.SubmitApplicationFor(
                     companyData.ToRequest(),
-                    new LoansRequest
-                    {
-                        InterestRatePerAnnum = loans.InterestRatePerAnnum,
-                        LoanAmount = loans.LoanAmount
-                    });
+                    loans.ToRequest());
 
                 return result.ToInt();
             }

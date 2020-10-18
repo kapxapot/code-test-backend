@@ -1,5 +1,6 @@
 ﻿using SlothEnterprise.External;
 using SlothEnterprise.ProductApplication.Applications;
+using SlothEnterprise.ProductApplication.Products;
 using SlothEnterprise.ProductApplication.Tests.Mocks;
 using System;
 using Xunit;
@@ -9,7 +10,7 @@ namespace SlothEnterprise.ProductApplication.Tests
     public class ProductApplicationTests
     {
         [Fact]
-        public void ToRequestTest()
+        public void CompanyDataToRequestTest()
         {
             var companyData = new SellerCompanyData
             {
@@ -25,6 +26,22 @@ namespace SlothEnterprise.ProductApplication.Tests
             Assert.Equal(companyData.Number, request.CompanyNumber);
             Assert.Equal(companyData.Name, request.CompanyName);
             Assert.Equal(companyData.DirectorName, request.DirectorName);
+        }
+
+        [Fact]
+        public void BusinessLoansToRequestTest()
+        {
+            var loans = new BusinessLoans
+            {
+                Id = 1,
+                InterestRatePerAnnum = 0.05m,
+                LoanAmount = 10000
+            };
+
+            var request = loans.ToRequest();
+
+            Assert.Equal(loans.InterestRatePerAnnum, request.InterestRatePerAnnum);
+            Assert.Equal(loans.LoanAmount, request.LoanAmount);
         }
 
         [Fact]
