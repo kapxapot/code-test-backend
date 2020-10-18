@@ -26,36 +26,33 @@ namespace SlothEnterprise.ProductApplication
 
             if (product is SelectiveInvoiceDiscount sid)
             {
-                return _selectInvoiceService.SubmitApplicationFor(companyData.Number.ToString(), sid.InvoiceAmount, sid.AdvancePercentage);
+                return _selectInvoiceService.SubmitApplicationFor(
+                    companyData.Number.ToString(),
+                    sid.InvoiceAmount,
+                    sid.AdvancePercentage);
             }
 
             if (product is ConfidentialInvoiceDiscount cid)
             {
                 var result = _confidentialInvoiceWebService.SubmitApplicationFor(
-                    new CompanyDataRequest
-                    {
-                        CompanyFounded = companyData.Founded,
-                        CompanyNumber = companyData.Number,
-                        CompanyName = companyData.Name,
-                        DirectorName = companyData.DirectorName
-                    }, cid.TotalLedgerNetworth, cid.AdvancePercentage, cid.VatRate);
+                    companyData.ToRequest(),
+                    cid.TotalLedgerNetworth,
+                    cid.AdvancePercentage,
+                    cid.VatRate);
 
                 return (result.Success) ? result.ApplicationId ?? -1 : -1;
             }
 
             if (product is BusinessLoans loans)
             {
-                var result = _businessLoansService.SubmitApplicationFor(new CompanyDataRequest
-                {
-                    CompanyFounded = companyData.Founded,
-                    CompanyNumber = companyData.Number,
-                    CompanyName = companyData.Name,
-                    DirectorName = companyData.DirectorName
-                }, new LoansRequest
-                {
-                    InterestRatePerAnnum = loans.InterestRatePerAnnum,
-                    LoanAmount = loans.LoanAmount
-                });
+                var result = _businessLoansService.SubmitApplicationFor(
+                    companyData.ToRequest(),
+                    new LoansRequest
+                    {
+                        InterestRatePerAnnum = loans.InterestRatePerAnnum,
+                        LoanAmount = loans.LoanAmount
+                    });
+
                 return (result.Success) ? result.ApplicationId ?? -1 : -1;
             }
 
